@@ -1,0 +1,415 @@
+/* DROP TABLES*/
+DROP TABLE pokemon;
+DROP TABLE caja;
+DROP TABLE equipo;
+DROP TABLE mochila;
+DROP TABLE objeto;
+DROP TABLE entrenador;
+DROP TABLE pokedex;
+DROP TABLE movimiento;
+DROP TABLE estado;
+DROP TABLE tipo;
+
+/* CREATE TABLE tipo */
+CREATE TABLE tipo
+ (id_tipo INT AUTO_INCREMENT,
+  nombre VARCHAR(20) NOT NULL,
+  CONSTRAINT tipo_pk PRIMARY KEY (id_tipo));
+ 
+ /* CREATE TABLE estado */
+ CREATE TABLE estado
+ (id_estado INT AUTO_INCREMENT,
+  nombre VARCHAR(30) NOT NULL,
+  CONSTRAINT estado_pk PRIMARY KEY (id_estado));
+  
+  /* CREATE TABLE movimiento */
+  CREATE TABLE movimiento
+ (id_movimiento INT AUTO_INCREMENT,
+  nombre VARCHAR(30) NOT NULL,
+  clase_movimiento VARCHAR(20) NOT NULL CHECK (clase_movimiento = 'ataque' OR clase_movimiento = 'estado' OR clase_movimiento = 'mejora'),
+  categoria VARCHAR(20) NOT NULL CHECK (categoria =  'fisico' OR categoria = 'especial'),
+  tipo INT,
+  estamina INT ,
+  potencia INT,
+  estado INT,
+  duracion INT,
+  probabilidad INT,
+  mejora VARCHAR(20),
+  CONSTRAINT movimiento_pk PRIMARY KEY (id_movimiento),
+  CONSTRAINT movimiento_tipo_fk FOREIGN KEY (tipo) REFERENCES tipo(id_tipo),
+  CONSTRAINT movimiento_estado_fk FOREIGN KEY (estado) REFERENCES estado(id_estado));
+  
+  /* CREATE TABLE pokedex */
+  CREATE TABLE pokedex
+ (num_pokedex INT AUTO_INCREMENT,
+  nombre VARCHAR(30) NOT NULL,
+  nivel_evolucion INT,
+  movimiento1 INT NOT NULL,
+  movimiento2 INT,
+  movimiento3 INT,
+  movimiento4 INT,
+  tipo INT,
+  subtipo INT,
+  img_front VARCHAR(200) NOT NULL,
+  img_back VARCHAR(200) NOT NULL,
+  CONSTRAINT pokedex_pk PRIMARY KEY (num_pokedex),
+  CONSTRAINT pokedex_movimiento1_fk FOREIGN KEY (movimiento1) REFERENCES movimiento(id_movimiento),
+  CONSTRAINT pokedex_movimiento2_fk FOREIGN KEY (movimiento2) REFERENCES movimiento(id_movimiento),
+  CONSTRAINT pokedex_movimiento3_fk FOREIGN KEY (movimiento3) REFERENCES movimiento(id_movimiento),
+  CONSTRAINT pokedex_movimiento4_fk FOREIGN KEY (movimiento4) REFERENCES movimiento(id_movimiento),
+  CONSTRAINT pokedex_tipo_fk FOREIGN KEY (tipo) REFERENCES tipo(id_tipo),
+  CONSTRAINT pokedex_subtipo_fk FOREIGN KEY (subtipo) REFERENCES tipo(id_tipo));
+  
+  /* CREATE TABLE entrenador */
+  CREATE TABLE entrenador
+ (id_entrenador INT AUTO_INCREMENT,
+  nombre VARCHAR(40) NOT NULL UNIQUE,
+  pokedollar INT NOT NULL,
+  CONSTRAINT entrenador_pk PRIMARY KEY (id_entrenador));
+  
+  /* CREATE TABLE objeto */
+  CREATE TABLE objeto
+ (id_objeto INT AUTO_INCREMENT,
+  nombre VARCHAR(30) NOT NULL,
+  precio_compra INT,
+  precio_venta INT,
+  aumento INT,
+  disminucion INT,
+  descripcion VARCHAR(200),
+  CONSTRAINT objeto_pk PRIMARY KEY (id_objeto));
+  
+  /* CREATE TABLE mochila */
+  CREATE TABLE mochila
+  (id_mochila INT AUTO_INCREMENT,
+  id_entrenador INT,
+  id_objeto INT,
+  cantidad INT,
+  CONSTRAINT mochila_pk PRIMARY KEY (id_mochila),
+  CONSTRAINT mochila_objeto_fk FOREIGN KEY (id_objeto) REFERENCES objeto(id_objeto),
+  CONSTRAINT mochila_entrenador_fk FOREIGN KEY (id_entrenador) REFERENCES entrenador(id_entrenador));
+  
+  /* CREATE TABLE equipo */
+  CREATE TABLE equipo
+  (id_equipo INT AUTO_INCREMENT,
+   id_entrenador INT,
+   CONSTRAINT equipo_pk PRIMARY KEY (id_equipo),
+   CONSTRAINT equipo_entrenador_fk FOREIGN KEY (id_entrenador) REFERENCES entrenador(id_entrenador));
+   
+   /* CREATE TABLE caja */
+   CREATE TABLE caja
+  (id_caja INT AUTO_INCREMENT,
+   id_entrenador INT,
+   CONSTRAINT caja_pk PRIMARY KEY (id_caja),
+   CONSTRAINT caja_entrenador_fk FOREIGN KEY (id_entrenador) REFERENCES entrenador(id_entrenador));
+   
+   /* CREATE TABLE pokemon */
+   CREATE TABLE pokemon
+   (id_pokemon INT AUTO_INCREMENT,
+    num_pokedex INT NOT NULL,
+    id_caja INT,
+    id_entrenador INT,
+    id_equipo INT,
+    mote VARCHAR(30),
+    sexo CHAR NOT NULL CHECK (sexo='m' OR sexo='h'),
+    nivel INT NOT NULL DEFAULT 1,
+    vitalidad INT NOT NULL,
+    ataque INT NOT NULL,
+    ataque_especial INT NOT NULL,
+    defensa INT NOT NULL,
+    defensa_especial INT NOT NULL,
+    velocidad INT NOT NULL,
+    estamina INT NOT NULL,
+    fertilidad INT NOT NULL DEFAULT 5,
+    objeto INT,
+    movimiento1 INT NOT NULL,
+    movimiento2 INT,
+    movimiento3 INT,
+    movimiento4 INT,
+    estado INT,
+    experiencia INT DEFAULT 0,
+    CONSTRAINT pokemon_pk PRIMARY KEY (id_pokemon),
+  CONSTRAINT pokemon_pokedex_fk FOREIGN KEY (num_pokedex) REFERENCES pokedex(num_pokedex),
+  CONSTRAINT pokemon_caja_fk FOREIGN KEY (id_caja) REFERENCES caja(id_caja),
+  CONSTRAINT pokemon_entrenador_fk FOREIGN KEY (id_entrenador) REFERENCES entrenador(id_entrenador),
+  CONSTRAINT pokemon_equipo_fk FOREIGN KEY (id_equipo) REFERENCES equipo(id_equipo),
+  CONSTRAINT pokemon_movimiento1_fk FOREIGN KEY (movimiento1) REFERENCES movimiento(id_movimiento),
+  CONSTRAINT pokemon_movimiento2_fk FOREIGN KEY (movimiento2) REFERENCES movimiento(id_movimiento),
+  CONSTRAINT pokemon_movimiento3_fk FOREIGN KEY (movimiento3) REFERENCES movimiento(id_movimiento),
+  CONSTRAINT pokemon_movimiento4_fk FOREIGN KEY (movimiento4) REFERENCES movimiento(id_movimiento),
+  CONSTRAINT pokemon_estado_fk FOREIGN KEY (estado) REFERENCES estado(id_estado));
+  
+  /* INSERT INTO tipo */
+ INSERT INTO tipo (nombre) VALUES ('AGUA');
+ INSERT INTO tipo (nombre) VALUES ('BICHO');
+ INSERT INTO tipo (nombre) VALUES ('DRAGON');
+ INSERT INTO tipo (nombre) VALUES ('ELECTRICO');
+ INSERT INTO tipo (nombre) VALUES ('FANTASMA');
+ INSERT INTO tipo (nombre) VALUES ('FUEGO');
+ INSERT INTO tipo (nombre) VALUES ('HIELO');
+ INSERT INTO tipo (nombre) VALUES ('LUCHA');
+ INSERT INTO tipo (nombre) VALUES ('NORMAL');
+ INSERT INTO tipo (nombre) VALUES ('PLANTA');
+ INSERT INTO tipo (nombre) VALUES ('PSIQUICO');
+ INSERT INTO tipo (nombre) VALUES ('ROCA');
+ INSERT INTO tipo (nombre) VALUES ('TIERRA');
+ INSERT INTO tipo (nombre) VALUES ('VENENO');
+ INSERT INTO tipo (nombre) VALUES ('VOLADOR');
+ 
+ /* INSERT INTO estado */
+ INSERT INTO estado (nombre) VALUES ('paralizado');
+  INSERT INTO estado (nombre) VALUES ('quemado');
+  INSERT INTO estado (nombre) VALUES ('envenenado');
+  INSERT INTO estado (nombre) VALUES ('gravemente envenenado');
+  INSERT INTO estado (nombre) VALUES ('dormido');
+  INSERT INTO estado (nombre) VALUES ('congelado');
+  INSERT INTO estado (nombre) VALUES ('debilitado');
+  INSERT INTO estado (nombre) VALUES ('confuso');
+  INSERT INTO estado (nombre) VALUES ('amedrentado');
+  
+  /* INSERT INTO objeto */
+  INSERT INTO objeto (nombre, precio_compra, precio_venta, aumento, disminucion, descripcion) VALUES ('anillo unico', 0, 0, 0, 0, 'Un anillo para gobernarlos\na todos');
+  INSERT INTO objeto (nombre, precio_compra, precio_venta, aumento, disminucion, descripcion) VALUES ('peso', 4000, 2000,20,20,'Aumenta 20%:\nAtaque\nDefensa\nDisminuye 20%:\nVelocidad');
+  INSERT INTO objeto (nombre, precio_compra, precio_venta, aumento, disminucion, descripcion) VALUES ('pluma', 3000, 1500,30,20,'Aumenta 30%:\nVelocidad\nDisminuye 20%\nDefensa\nDefensa Especial');
+  INSERT INTO objeto (nombre, precio_compra, precio_venta, aumento, disminucion, descripcion) VALUES ('chaleco', 2000, 1000,20,15,'Aumenta 20%:\nDefensa\nDefensa Especial\nDisminuye 15%:\nVelocidad\nAtaque');
+  INSERT INTO objeto (nombre, precio_compra, precio_venta, aumento, disminucion, descripcion) VALUES ('baston', 2000, 1000,20,15,'Aumenta 20%:\nEstamina\nDisminuye 15%:\nVelocidad');
+  INSERT INTO objeto (nombre, precio_compra, precio_venta, aumento, disminucion, descripcion) VALUES ('pilas', 3000, 1500,50,30,'Aumenta 50%:\nRecuperacion de estamina\nDisminuye 30%:\nDefensa Especial');
+  
+  /* INSERT INTO movimiento */
+ INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('rayo burbuja', 'ataque', 'especial', 1, 65, NULL, NULL);
+ INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('hidrobomba', 'ataque', 'especial', 1, 110, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('martillazo', 'ataque', 'fisico', 1, 100, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('pistola agua', 'ataque', 'especial', 1, 40, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('pin misil', 'ataque', 'fisico', 2, 70, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('chupavidas', 'ataque', 'fisico', 2, 40, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('furia dragon', 'ataque', 'especial', 3, 85, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('impactrueno', 'ataque', 'especial', 4, 40, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion, probabilidad) VALUES ('onda trueno', 'estado', 'especial', 4, NULL, 1, NULL, 100);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('puño trueno', 'ataque', 'fisico', 4, 75, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('trueno', 'ataque', 'especial', 4, 110, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('lengüetazo', 'ataque', 'fisico', 5, 40, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion, probabilidad) VALUES ('rayo confuso', 'estado', 'especial', 5, NULL, 8, 3,60);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('tinieblas', 'ataque', 'especial', 5, 80, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('ascuas', 'ataque', 'especial', 6, 40, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('lanzallamas', 'ataque', 'especial', 6, 90, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('puño fuego', 'ataque', 'fisico', 6, 75, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('llamarada', 'ataque', 'especial', 6, 110, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('puño hielo', 'ataque', 'fisico', 7, 75, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('rayo aurora', 'ataque', 'especial', 7, 90, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('rayo hielo', 'ataque', 'especial', 7, 110, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('golpe karate', 'ataque', 'fisico', 8, 75, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('patada giro', 'ataque', 'fisico', 8, 60, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('patada salto', 'ataque', 'fisico', 8, 90, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('placaje', 'ataque', 'fisico', 9, 40, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('golpe cuerpo', 'ataque', 'fisico', 9, 75, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion, mejora) VALUES ('rizo defensa', 'mejora', 'especial', 9, NULL, NULL, NULL, 'defensa');
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('hiperrayo', 'ataque', 'especial', 9, 90, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('megapuño', 'ataque', 'fisico', 9, 80, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion, mejora) VALUES ('danza espada', 'mejora', 'especial', 9, NULL, NULL, NULL, 'ataque');
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('fuerza', 'ataque', 'fisico', 9, 80, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('golpe cabeza', 'ataque', 'fisico', 9, 60, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('hoja afilada', 'ataque', 'especial', 10, 40, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('latigo cepa', 'ataque', 'fisico', 10, 65, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('rayo solar', 'ataque', 'especial', 10, 120, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion, probabilidad) VALUES ('paralizador', 'estado', 'especial', 10, NULL, 1, NULL,75);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion, probabilidad) VALUES ('somnifero', 'estado', 'especial', 10, NULL, 5, 3,60);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('psicorrayo', 'ataque', 'especial', 11, 70, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('psiquico', 'ataque', 'especial', 11, 90, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion, probabilidad) VALUES ('hipnosis', 'estado', 'especial', 11, NULL, 8, 3,60);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('lanzarrocas', 'ataque', 'fisico', 12, 75, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('avalancha', 'ataque', 'fisico', 12, 80, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('terremoto', 'ataque', 'fisico', 13, 110, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('huesomerang', 'ataque', 'fisico', 13, 75, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('residuos', 'ataque', 'especial', 14, 70, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion, probabilidad) VALUES ('polvo veneno', 'estado', 'especial', 14, NULL, 3, NULL, 50);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion, probabilidad) VALUES ('toxico', 'estado', 'especial', 14, NULL, 4, NULL, 40);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('ataque aereo', 'ataque', 'fisico', 15, 75, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('pico taladro', 'ataque', 'fisico', 15, 65, NULL, NULL);
+INSERT INTO movimiento (nombre, clase_movimiento, categoria, tipo, potencia, estado, duracion) VALUES ('picotazo', 'ataque', 'fisico', 15, 50, NULL, NULL);
+
+/* INSERT INTO pokedex */
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Bulbasur',16,25, NULL, NULL, NULL, 10, 14, 'resources/sprites/pokemons/front/1.png', 'resources/sprites/pokemons/back/1.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Ivysaur',32,25, NULL, NULL, NULL, 10, 14, 'resources/sprites/pokemons/front/2.png', 'resources/sprites/pokemons/back/2.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Venusaur', NULL, 25, NULL, NULL, NULL, 10, 14, 'resources/sprites/pokemons/front/3.png', 'resources/sprites/pokemons/back/3.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Charmander',16,25, NULL, NULL, NULL, 6, NULL, 'resources/sprites/pokemons/front/4.png', 'resources/sprites/pokemons/back/4.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Charmeleon',32,25, NULL, NULL, NULL, 6, NULL, 'resources/sprites/pokemons/front/5.png', 'resources/sprites/pokemons/back/5.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Charizard',NULL,25, NULL, NULL, NULL, 6, 15, 'resources/sprites/pokemons/front/6.png', 'resources/sprites/pokemons/back/6.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Squirtle',16,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/7.png', 'resources/sprites/pokemons/back/7.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Wartortle',32,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/8.png', 'resources/sprites/pokemons/back/8.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Blastoise',NULL,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/9.png', 'resources/sprites/pokemons/back/9.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Caterpie',8,25, NULL, NULL, NULL, 2, NULL, 'resources/sprites/pokemons/front/10.png', 'resources/sprites/pokemons/back/10.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Metapod',12,25, NULL, NULL, NULL, 2, NULL, 'resources/sprites/pokemons/front/11.png', 'resources/sprites/pokemons/back/11.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Butterfly',NULL,25, NULL, NULL, NULL, 2, 15, 'resources/sprites/pokemons/front/12.png', 'resources/sprites/pokemons/back/12.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Weedle',8,25, NULL, NULL, NULL, 2, 14, 'resources/sprites/pokemons/front/13.png', 'resources/sprites/pokemons/back/13.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Kakuna',12,25, NULL, NULL, NULL, 2, 14, 'resources/sprites/pokemons/front/14.png', 'resources/sprites/pokemons/back/14.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Beedrill',NULL,25, NULL, NULL, NULL, 2, 14, 'resources/sprites/pokemons/front/15.png', 'resources/sprites/pokemons/back/15.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Pidgey',17,25, NULL, NULL, NULL, 9, 15, 'resources/sprites/pokemons/front/16.png', 'resources/sprites/pokemons/back/16.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Pidgeotto',28,25, NULL, NULL, NULL, 9, 15, 'resources/sprites/pokemons/front/17.png', 'resources/sprites/pokemons/back/17.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Pidgeot',NULL,25, NULL, NULL, NULL, 9, 15, 'resources/sprites/pokemons/front/18.png', 'resources/sprites/pokemons/back/18.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Ratata',20,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/19.png', 'resources/sprites/pokemons/back/19.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Raticate',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/20.png', 'resources/sprites/pokemons/back/20.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Spearow',24,25, NULL, NULL, NULL, 9, 15, 'resources/sprites/pokemons/front/21.png', 'resources/sprites/pokemons/back/21.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Fearow',NULL,25, NULL, NULL, NULL, 9, 15, 'resources/sprites/pokemons/front/22.png', 'resources/sprites/pokemons/back/22.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Ekans',24,25, NULL, NULL, NULL, 14, NULL, 'resources/sprites/pokemons/front/23.png', 'resources/sprites/pokemons/back/23.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Arbok',NULL,25, NULL, NULL, NULL, 14, NULL, 'resources/sprites/pokemons/front/24.png', 'resources/sprites/pokemons/back/24.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Pikachu',28,25, NULL, NULL, NULL, 4, NULL, 'resources/sprites/pokemons/front/25.png', 'resources/sprites/pokemons/back/25.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Raichu',NULL,25, NULL, NULL, NULL, 4, NULL, 'resources/sprites/pokemons/front/26.png', 'resources/sprites/pokemons/back/26.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Sandshrew',28,25, NULL, NULL, NULL, 13, NULL, 'resources/sprites/pokemons/front/27.png', 'resources/sprites/pokemons/back/27.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Sandslash',NULL,25, NULL, NULL, NULL, 13, NULL, 'resources/sprites/pokemons/front/28.png', 'resources/sprites/pokemons/back/28.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Nidoran',16,25, NULL, NULL, NULL, 14, NULL, 'resources/sprites/pokemons/front/29.png', 'resources/sprites/pokemons/back/29.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Nidorina',32,25, NULL, NULL, NULL, 14, NULL, 'resources/sprites/pokemons/front/30.png', 'resources/sprites/pokemons/back/30.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Nidoqueen',NULL,25, NULL, NULL, NULL, 14, 13, 'resources/sprites/pokemons/front/31.png', 'resources/sprites/pokemons/back/31.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Nidoran',16,25, NULL, NULL, NULL, 14, NULL, 'resources/sprites/pokemons/front/32.png', 'resources/sprites/pokemons/back/32.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Nidorino',32,25, NULL, NULL, NULL, 14, NULL, 'resources/sprites/pokemons/front/33.png', 'resources/sprites/pokemons/back/33.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Nidoking',NULL,25, NULL, NULL, NULL, 14, 13, 'resources/sprites/pokemons/front/34.png', 'resources/sprites/pokemons/back/34.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Clefairy',26,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/35.png', 'resources/sprites/pokemons/back/35.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Clefable',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/36.png', 'resources/sprites/pokemons/back/36.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Vulpix',30,25, NULL, NULL, NULL, 6, NULL, 'resources/sprites/pokemons/front/37.png', 'resources/sprites/pokemons/back/37.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Ninetales',NULL,25, NULL, NULL, NULL, 6, NULL, 'resources/sprites/pokemons/front/38.png', 'resources/sprites/pokemons/back/38.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Jigglypuff',20,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/39.png', 'resources/sprites/pokemons/back/39.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Wigglytuff',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/40.png', 'resources/sprites/pokemons/back/40.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Zubat',18,25, NULL, NULL, NULL, 14, 15, 'resources/sprites/pokemons/front/41.png', 'resources/sprites/pokemons/back/41.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Golbat',NULL,25, NULL, NULL, NULL, 14, 15, 'resources/sprites/pokemons/front/42.png', 'resources/sprites/pokemons/back/42.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Oddish',16,25, NULL, NULL, NULL, 10, 14, 'resources/sprites/pokemons/front/43.png', 'resources/sprites/pokemons/back/43.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Gloom',28,25, NULL, NULL, NULL, 10, 14, 'resources/sprites/pokemons/front/44.png', 'resources/sprites/pokemons/back/44.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Vileplume',NULL,25, NULL, NULL, NULL, 10, 14, 'resources/sprites/pokemons/front/45.png', 'resources/sprites/pokemons/back/45.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Paras',22,25, NULL, NULL, NULL, 2, 10, 'resources/sprites/pokemons/front/46.png', 'resources/sprites/pokemons/back/46.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Parasect',NULL,25, NULL, NULL, NULL, 2, 10, 'resources/sprites/pokemons/front/47.png', 'resources/sprites/pokemons/back/47.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Venonat',26,25, NULL, NULL, NULL, 2, 14, 'resources/sprites/pokemons/front/48.png', 'resources/sprites/pokemons/back/48.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Venomoth',NULL,25, NULL, NULL, NULL, 2, 14, 'resources/sprites/pokemons/front/49.png', 'resources/sprites/pokemons/back/49.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Diglett',24,25, NULL, NULL, NULL, 13, NULL, 'resources/sprites/pokemons/front/50.png', 'resources/sprites/pokemons/back/50.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Dugtrio',NULL,25, NULL, NULL, NULL, 13, NULL, 'resources/sprites/pokemons/front/51.png', 'resources/sprites/pokemons/back/51.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Meowth',24,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/52.png', 'resources/sprites/pokemons/back/52.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Persian',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/53.png', 'resources/sprites/pokemons/back/53.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Psyduck',30,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/54.png', 'resources/sprites/pokemons/back/54.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Golduck',NULL,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/55.png', 'resources/sprites/pokemons/back/55.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Mankey',20,25, NULL, NULL, NULL, 8, NULL, 'resources/sprites/pokemons/front/56.png', 'resources/sprites/pokemons/back/56.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Primeape',NULL,25, NULL, NULL, NULL, 8, NULL, 'resources/sprites/pokemons/front/57.png', 'resources/sprites/pokemons/back/57.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Growlithe',28,25, NULL, NULL, NULL, 6, NULL, 'resources/sprites/pokemons/front/58.png', 'resources/sprites/pokemons/back/58.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Arcanine',NULL,25, NULL, NULL, NULL, 6, NULL, 'resources/sprites/pokemons/front/59.png', 'resources/sprites/pokemons/back/59.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Poliwag',16,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/60.png', 'resources/sprites/pokemons/back/60.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Poliwhirl',28,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/61.png', 'resources/sprites/pokemons/back/61.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Poliwrath',NULL,25, NULL, NULL, NULL, 1, 8, 'resources/sprites/pokemons/front/62.png', 'resources/sprites/pokemons/back/62.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Abra',16,25, NULL, NULL, NULL, 11, NULL, 'resources/sprites/pokemons/front/63.png', 'resources/sprites/pokemons/back/63.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Kadabra',32,25, NULL, NULL, NULL, 11, NULL, 'resources/sprites/pokemons/front/64.png', 'resources/sprites/pokemons/back/64.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Alakazam',NULL,25, NULL, NULL, NULL, 11, NULL, 'resources/sprites/pokemons/front/65.png', 'resources/sprites/pokemons/back/65.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Machop',16,25, NULL, NULL, NULL, 8, NULL, 'resources/sprites/pokemons/front/66.png', 'resources/sprites/pokemons/back/66.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Machoke',30,25, NULL, NULL, NULL, 8, NULL, 'resources/sprites/pokemons/front/67.png', 'resources/sprites/pokemons/back/67.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Machamp',NULL,25, NULL, NULL, NULL, 8, NULL, 'resources/sprites/pokemons/front/68.png', 'resources/sprites/pokemons/back/68.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Bellsprout',16,25, NULL, NULL, NULL, 10, 14, 'resources/sprites/pokemons/front/69.png', 'resources/sprites/pokemons/back/69.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Weepinbel',26,25, NULL, NULL, NULL, 10, 14, 'resources/sprites/pokemons/front/70.png', 'resources/sprites/pokemons/back/70.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Victreebel',NULL,25, NULL, NULL, NULL, 10, 14, 'resources/sprites/pokemons/front/71.png', 'resources/sprites/pokemons/back/71.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Tentacool',26,25, NULL, NULL, NULL, 1, 14, 'resources/sprites/pokemons/front/72.png', 'resources/sprites/pokemons/back/72.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Tentacruel',NULL,25, NULL, NULL, NULL, 1, 14, 'resources/sprites/pokemons/front/73.png', 'resources/sprites/pokemons/back/73.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Geodude',18,25, NULL, NULL, NULL, 12, 13, 'resources/sprites/pokemons/front/74.png', 'resources/sprites/pokemons/back/74.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Graveler',30,25, NULL, NULL, NULL, 12, 13, 'resources/sprites/pokemons/front/75.png', 'resources/sprites/pokemons/back/75.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Golem',NULL,25, NULL, NULL, NULL, 12, 13, 'resources/sprites/pokemons/front/76.png', 'resources/sprites/pokemons/back/76.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Ponyta',30,25, NULL, NULL, NULL, 6, NULL, 'resources/sprites/pokemons/front/77.png', 'resources/sprites/pokemons/back/77.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Rapidash',NULL,25, NULL, NULL, NULL, 6, NULL, 'resources/sprites/pokemons/front/78.png', 'resources/sprites/pokemons/back/78.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Slowpoke',28,25, NULL, NULL, NULL, 1, 11, 'resources/sprites/pokemons/front/79.png', 'resources/sprites/pokemons/back/79.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Slowbro',NULL,25, NULL, NULL, NULL, 1, 11, 'resources/sprites/pokemons/front/80.png', 'resources/sprites/pokemons/back/80.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Magnemite',28,25, NULL, NULL, NULL, 4, NULL, 'resources/sprites/pokemons/front/81.png', 'resources/sprites/pokemons/back/81.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Magneton',NULL,25, NULL, NULL, NULL, 4, NULL, 'resources/sprites/pokemons/front/82.png', 'resources/sprites/pokemons/back/82.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Farfetch´d',NULL,25, NULL, NULL, NULL, 9, 15, 'resources/sprites/pokemons/front/83.png', 'resources/sprites/pokemons/back/83.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Doduo',28,25, NULL, NULL, NULL, 9, 15, 'resources/sprites/pokemons/front/84.png', 'resources/sprites/pokemons/back/84.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Dodrio',NULL,25, NULL, NULL, NULL, 9, 15, 'resources/sprites/pokemons/front/85.png', 'resources/sprites/pokemons/back/85.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Seel',26,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/86.png', 'resources/sprites/pokemons/back/86.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Dewgong',NULL,25, NULL, NULL, NULL, 1, 7, 'resources/sprites/pokemons/front/87.png', 'resources/sprites/pokemons/back/87.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Grimer',30,25, NULL, NULL, NULL, 14, NULL, 'resources/sprites/pokemons/front/88.png', 'resources/sprites/pokemons/back/88.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Muk',NULL,25, NULL, NULL, NULL, 14, NULL, 'resources/sprites/pokemons/front/89.png', 'resources/sprites/pokemons/back/89.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Shellder',24,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/90.png', 'resources/sprites/pokemons/back/90.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Cloyster',NULL,25, NULL, NULL, NULL, 1, 7, 'resources/sprites/pokemons/front/91.png', 'resources/sprites/pokemons/back/91.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Gastly',16,25, NULL, NULL, NULL, 5, 14, 'resources/sprites/pokemons/front/92.png', 'resources/sprites/pokemons/back/92.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Haunter',32,25, NULL, NULL, NULL, 5, 14, 'resources/sprites/pokemons/front/93.png', 'resources/sprites/pokemons/back/93.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Gengar',NULL,25, NULL, NULL, NULL, 5, 14, 'resources/sprites/pokemons/front/94.png', 'resources/sprites/pokemons/back/94.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Onix',NULL,25, NULL, NULL, NULL, 12, 13, 'resources/sprites/pokemons/front/95.png', 'resources/sprites/pokemons/back/95.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Drowzee',30,25, NULL, NULL, NULL, 11, NULL, 'resources/sprites/pokemons/front/96.png', 'resources/sprites/pokemons/back/96.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Hypno',NULL,25, NULL, NULL, NULL, 11, NULL, 'resources/sprites/pokemons/front/97.png', 'resources/sprites/pokemons/back/97.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Krabby',28,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/98.png', 'resources/sprites/pokemons/back/98.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Kingler',NULL,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/99.png', 'resources/sprites/pokemons/back/99.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Voltorb',30,25, NULL, NULL, NULL, 4, NULL, 'resources/sprites/pokemons/front/100.png', 'resources/sprites/pokemons/back/100.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Electrode',NULL,25, NULL, NULL, NULL, 4, NULL, 'resources/sprites/pokemons/front/101.png', 'resources/sprites/pokemons/back/101.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Exeggcute',32,25, NULL, NULL, NULL, 10, 11, 'resources/sprites/pokemons/front/102.png', 'resources/sprites/pokemons/back/102.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Exeggutor',NULL,25, NULL, NULL, NULL, 10, 11, 'resources/sprites/pokemons/front/103.png', 'resources/sprites/pokemons/back/103.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Cubone',32,25, NULL, NULL, NULL, 13, NULL, 'resources/sprites/pokemons/front/104.png', 'resources/sprites/pokemons/back/104.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Marowak',NULL,25, NULL, NULL, NULL, 13, NULL, 'resources/sprites/pokemons/front/105.png', 'resources/sprites/pokemons/back/105.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Hitmonlee',NULL,25, NULL, NULL, NULL, 8, NULL, 'resources/sprites/pokemons/front/106.png', 'resources/sprites/pokemons/back/106.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Hitmonchan',NULL,25, NULL, NULL, NULL, 8, NULL, 'resources/sprites/pokemons/front/107.png', 'resources/sprites/pokemons/back/107.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Lickitung',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/108.png', 'resources/sprites/pokemons/back/108.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Koffing',28,25, NULL, NULL, NULL, 14, NULL, 'resources/sprites/pokemons/front/109.png', 'resources/sprites/pokemons/back/109.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Weezing',NULL,25, NULL, NULL, NULL, 14, NULL, 'resources/sprites/pokemons/front/110.png', 'resources/sprites/pokemons/back/110.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Rhyhorn',32,25, NULL, NULL, NULL, 12, 13, 'resources/sprites/pokemons/front/111.png', 'resources/sprites/pokemons/back/111.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Rhydon',NULL,25, NULL, NULL, NULL, 12, 13, 'resources/sprites/pokemons/front/112.png', 'resources/sprites/pokemons/back/112.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Chansey',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/113.png', 'resources/sprites/pokemons/back/113.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Tangela',NULL,25, NULL, NULL, NULL, 10, NULL, 'resources/sprites/pokemons/front/114.png', 'resources/sprites/pokemons/back/114.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Kangaskhan',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/115.png', 'resources/sprites/pokemons/back/115.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Horsea',20,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/116.png', 'resources/sprites/pokemons/back/116.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Seadra',NULL,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/117.png', 'resources/sprites/pokemons/back/117.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Goldeen',24,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/118.png', 'resources/sprites/pokemons/back/118.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Seaking',NULL,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/119.png', 'resources/sprites/pokemons/back/119.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Staryu',30,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/120.png', 'resources/sprites/pokemons/back/120.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Starmie',NULL,25, NULL, NULL, NULL, 1, 11, 'resources/sprites/pokemons/front/121.png', 'resources/sprites/pokemons/back/121.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Mr.Mime',NULL,25, NULL, NULL, NULL, 11, NULL, 'resources/sprites/pokemons/front/122.png', 'resources/sprites/pokemons/back/122.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Scyther',NULL,25, NULL, NULL, NULL, 2, 15, 'resources/sprites/pokemons/front/123.png', 'resources/sprites/pokemons/back/123.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Jynx',NULL,25, NULL, NULL, NULL, 7, 11, 'resources/sprites/pokemons/front/124.png', 'resources/sprites/pokemons/back/124.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Electabuzz',NULL,25, NULL, NULL, NULL, 4, NULL, 'resources/sprites/pokemons/front/125.png', 'resources/sprites/pokemons/back/125.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Magmar',NULL,25, NULL, NULL, NULL, 6, NULL, 'resources/sprites/pokemons/front/126.png', 'resources/sprites/pokemons/back/126.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Pinsir',NULL,25, NULL, NULL, NULL, 2, NULL, 'resources/sprites/pokemons/front/127.png', 'resources/sprites/pokemons/back/127.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Tauros',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/128.png', 'resources/sprites/pokemons/back/128.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Magikarp',20,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/129.png', 'resources/sprites/pokemons/back/129.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Gyarados',NULL,25, NULL, NULL, NULL, 1, 15, 'resources/sprites/pokemons/front/130.png', 'resources/sprites/pokemons/back/130.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Lapras',NULL,25, NULL, NULL, NULL, 1, 7, 'resources/sprites/pokemons/front/131.png', 'resources/sprites/pokemons/back/131.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Ditto',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/132.png', 'resources/sprites/pokemons/back/132.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Eevee',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/133.png', 'resources/sprites/pokemons/back/133.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Vaporeon',NULL,25, NULL, NULL, NULL, 1, NULL, 'resources/sprites/pokemons/front/134.png', 'resources/sprites/pokemons/back/134.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Jolteon',NULL,25, NULL, NULL, NULL, 4, NULL, 'resources/sprites/pokemons/front/135.png', 'resources/sprites/pokemons/back/135.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Flareon',NULL,25, NULL, NULL, NULL, 6, NULL, 'resources/sprites/pokemons/front/136.png', 'resources/sprites/pokemons/back/136.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Porygon',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/137.png', 'resources/sprites/pokemons/back/137.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Omanyte',32,25, NULL, NULL, NULL, 12, 1, 'resources/sprites/pokemons/front/138.png', 'resources/sprites/pokemons/back/138.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Omastar',NULL,25, NULL, NULL, NULL, 12, 1, 'resources/sprites/pokemons/front/139.png', 'resources/sprites/pokemons/back/139.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Kabuto',32,25, NULL, NULL, NULL, 12, 1, 'resources/sprites/pokemons/front/140.png', 'resources/sprites/pokemons/back/140.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Kabutops',NULL,25, NULL, NULL, NULL, 12, 1, 'resources/sprites/pokemons/front/141.png', 'resources/sprites/pokemons/back/141.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Aerodactyl',NULL,25, NULL, NULL, NULL, 12, 15, 'resources/sprites/pokemons/front/142.png', 'resources/sprites/pokemons/back/142.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Snorlax',NULL,25, NULL, NULL, NULL, 9, NULL, 'resources/sprites/pokemons/front/143.png', 'resources/sprites/pokemons/back/143.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Articuno',NULL,25, NULL, NULL, NULL, 7, 15, 'resources/sprites/pokemons/front/144.png', 'resources/sprites/pokemons/back/144.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Zapdos',NULL,25, NULL, NULL, NULL, 4, 15, 'resources/sprites/pokemons/front/145.png', 'resources/sprites/pokemons/back/145.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Moltres',NULL,25, NULL, NULL, NULL, 6, 15, 'resources/sprites/pokemons/front/146.png', 'resources/sprites/pokemons/back/146.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Dratini',20,25, NULL, NULL, NULL, 3, NULL, 'resources/sprites/pokemons/front/147.png', 'resources/sprites/pokemons/back/147.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Dragonair',36,25, NULL, NULL, NULL, 3, NULL, 'resources/sprites/pokemons/front/148.png', 'resources/sprites/pokemons/back/148.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Dragonite',NULL,25, NULL, NULL, NULL, 3, 15, 'resources/sprites/pokemons/front/149.png', 'resources/sprites/pokemons/back/149.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Mewtwo',NULL,25, NULL, NULL, NULL, 11, NULL, 'resources/sprites/pokemons/front/150.png', 'resources/sprites/pokemons/back/150.png' );
+INSERT INTO pokedex (nombre, nivel_evolucion, movimiento1, movimiento2, movimiento3, movimiento4, tipo, subtipo, img_front, img_back) VALUES ('Mew',NULL,25, NULL, NULL, NULL, 11, NULL, 'resources/sprites/pokemons/front/151.png', 'resources/sprites/pokemons/back/151.png' );
+
+/*INSERT entrenador (predeterminados)*/
+INSERT INTO entrenador (nombre, pokedollar) VALUES ('Sir Paco of Astora', 1000);
+INSERT INTO entrenador (nombre, pokedollar) VALUES ('Alto Mando Luisre', 1000);
+INSERT INTO entrenador (nombre, pokedollar) VALUES ('Angel Cuadrao', 1000);
+INSERT INTO entrenador (nombre, pokedollar) VALUES ('Amigo Fuchibol Fernando', 1000);
+
+/*INSERT caja (predeterminado)*/
+INSERT INTO caja (id_entrenador) VALUES (1);
+INSERT INTO caja (id_entrenador) VALUES (2);
+INSERT INTO caja (id_entrenador) VALUES (3);
+INSERT INTO caja (id_entrenador) VALUES (4);
+
+/*INSERT equipo (predeterminado)*/
+INSERT INTO equipo (id_entrenador) VALUES (1);
+INSERT INTO equipo (id_entrenador) VALUES (2);
+INSERT INTO equipo (id_entrenador) VALUES (3);
+INSERT INTO equipo (id_entrenador) VALUES (4);
+
+/*INSERT mochila (predetermido)*/
+INSERT INTO mochila (id_entrenador, id_objeto) VALUES (1,1);
+INSERT INTO mochila (id_entrenador, id_objeto) VALUES (2,1);
+INSERT INTO mochila (id_entrenador, id_objeto) VALUES (3,1);
+INSERT INTO mochila (id_entrenador, id_objeto) VALUES (4,1);
+
+/*INSERT pokemon (predeterminados)*/
+INSERT INTO pokemon (num_pokedex, id_caja, id_entrenador,id_equipo,mote, sexo,nivel,vitalidad,ataque,ataque_especial,defensa,defensa_especial,velocidad,estamina,fertilidad,objeto,movimiento1,movimiento2,movimiento3,movimiento4) VALUES (59, 1, 1, 1, NULL, 'H',1, 25, 5, 10, 6, 4, 5,80, 5, NULL, 25, 15, NULL, NULL);
+INSERT INTO pokemon (num_pokedex, id_caja, id_entrenador,id_equipo,mote,sexo,nivel,vitalidad,ataque,ataque_especial,defensa,defensa_especial,velocidad,estamina,fertilidad,objeto,movimiento1,movimiento2,movimiento3,movimiento4) VALUES (145, 1, 1, 1, NULL, 'H',1, 45, 5, 5, 5, 5, 5,85, 5, NULL, 25, 11, NULL, NULL);
+INSERT INTO pokemon (num_pokedex, id_caja, id_entrenador,id_equipo,mote,sexo,nivel,vitalidad,ataque,ataque_especial,defensa,defensa_especial,velocidad,estamina,fertilidad,objeto,movimiento1,movimiento2,movimiento3,movimiento4) VALUES (149, 2, 2, 2, NULL, 'H',1, 35, 7, 10, 6, 4, 8,80, 5, NULL, 25, 7, NULL, NULL);
+INSERT INTO pokemon (num_pokedex, id_caja, id_entrenador,id_equipo,mote,sexo,nivel,vitalidad,ataque,ataque_especial,defensa,defensa_especial,velocidad,estamina,fertilidad,objeto,movimiento1,movimiento2,movimiento3,movimiento4) VALUES (135, 2, 2, 2, NULL, 'H',1, 23, 10, 4, 7, 4, 5,80, 5, NULL, 25, 1, NULL, NULL);
+INSERT INTO pokemon (num_pokedex, id_caja, id_entrenador,id_equipo,mote,sexo,nivel,vitalidad,ataque,ataque_especial,defensa,defensa_especial,velocidad,estamina,fertilidad,objeto,movimiento1,movimiento2,movimiento3,movimiento4) VALUES (68, 3, 3, 3, NULL, 'H',1, 30, 7, 10, 6, 8, 5,80, 5, NULL, 25, 22, NULL, NULL);
+INSERT INTO pokemon (num_pokedex, id_caja, id_entrenador,id_equipo,mote,sexo,nivel,vitalidad,ataque,ataque_especial,defensa,defensa_especial,velocidad,estamina,fertilidad,objeto,movimiento1,movimiento2,movimiento3,movimiento4) VALUES (62, 3, 3, 3, NULL, 'H',1, 24, 5, 10, 7, 4, 10,80, 5, NULL, 25, 3, NULL, NULL);
+INSERT INTO pokemon (num_pokedex, id_caja, id_entrenador,id_equipo,mote,sexo,nivel,vitalidad,ataque,ataque_especial,defensa,defensa_especial,velocidad,estamina,fertilidad,objeto,movimiento1,movimiento2,movimiento3,movimiento4) VALUES (134, 4, 4, 4, NULL, 'H',1, 25, 5, 10, 6, 4, 10,80, 5, NULL, 25, 2, NULL, NULL);
+INSERT INTO pokemon (num_pokedex, id_caja, id_entrenador,id_equipo,mote,sexo,nivel,vitalidad,ataque,ataque_especial,defensa,defensa_especial,velocidad,estamina,fertilidad,objeto,movimiento1,movimiento2,movimiento3,movimiento4) VALUES (143, 4, 4, 4, NULL, 'H',1, 38, 8, 10, 6, 3, 5,80, 5, NULL, 25, 26, NULL, NULL);
+  

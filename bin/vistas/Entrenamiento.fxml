@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EntrenamientoController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/backgroundIMG/fondoEntrenamiento.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblPokemon" layoutX="169.0" layoutY="26.0" prefHeight="348.0" prefWidth="223.0">
+        <columns>
+          <TableColumn fx:id="nombre" prefWidth="110.0" text="Nombre" />
+          <TableColumn fx:id="mote" prefWidth="112.0" text="Mote" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnFurioso" layoutX="28.0" layoutY="39.0" mnemonicParsing="false" onAction="#furioso" onMouseEntered="#mostrarInfoFurioso" onMouseExited="#borrarInfoFurioso" prefHeight="49.0" prefWidth="121.0" text="Furioso" />
+      <Button fx:id="btnPesado" layoutX="28.0" layoutY="123.0" mnemonicParsing="false" onAction="#pesado" onMouseEntered="#mostrarInfoPesado" onMouseExited="#borrarInfoPesado" prefHeight="49.0" prefWidth="121.0" text="Pesado" />
+      <Button fx:id="btnFuncional" layoutX="28.0" layoutY="213.0" mnemonicParsing="false" onAction="#funcional" onMouseEntered="#mostrarInfoFuncional" onMouseExited="#borrarInfoFuncional" prefHeight="49.0" prefWidth="121.0" text="Funcional" />
+      <Button fx:id="btnOnirico" layoutX="28.0" layoutY="305.0" mnemonicParsing="false" onAction="#onirico" onMouseEntered="#mostrarInfoOnirico" onMouseExited="#borrarInfoOnirico" prefHeight="49.0" prefWidth="121.0" text="Onirico" />
+      <Button fx:id="btnSalir" layoutX="446.0" layoutY="311.0" mnemonicParsing="false" onAction="#salir" prefHeight="38.0" prefWidth="95.0" text="Salir" />
+      <TextArea fx:id="txtArea" layoutX="416.0" layoutY="88.0" prefHeight="92.0" prefWidth="171.0" />
+      <TextField fx:id="txtPokedollar" alignment="CENTER" editable="false" layoutX="445.0" layoutY="45.0" prefHeight="25.0" prefWidth="114.0" />
+      <Label layoutX="471.0" layoutY="26.0" text="Pokedollars" textFill="WHITE" />
+   </children>
+</AnchorPane>

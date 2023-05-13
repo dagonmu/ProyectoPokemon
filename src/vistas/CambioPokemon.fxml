@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CambioPokemonController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/backgroundIMG/pokedexFondo.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblEquipo" layoutX="45.0" layoutY="32.0" prefHeight="180.0" prefWidth="463.0">
+        <columns>
+          <TableColumn fx:id="nombre" prefWidth="82.0" text="Nombre" />
+          <TableColumn fx:id="mote" prefWidth="92.0" text="Mote" />
+            <TableColumn fx:id="tipo1" prefWidth="82.0" text="Tipo 1" />
+            <TableColumn fx:id="tipo2" prefWidth="95.0" text="Tipo 2" />
+            <TableColumn fx:id="vitalidad" prefWidth="111.0" text="Vitalidad actual" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnSalir" layoutX="300.0" layoutY="337.0" mnemonicParsing="false" onAction="#salir" prefHeight="63.0" prefWidth="300.0" text="Salir" />
+      <Button fx:id="btnCambiar" layoutY="337.0" mnemonicParsing="false" onAction="#cambiar" prefHeight="63.0" prefWidth="300.0" text="Cambiar" />
+   </children>
+</AnchorPane>

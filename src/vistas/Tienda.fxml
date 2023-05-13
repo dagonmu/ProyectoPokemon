@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TiendaController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/backgroundIMG/fondoPikachu.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblTienda" layoutX="23.0" layoutY="21.0" onMouseClicked="#seleccionar" prefHeight="216.0" prefWidth="300.0">
+        <columns>
+          <TableColumn fx:id="nombre" prefWidth="68.0" text="Nombre" />
+          <TableColumn fx:id="precioCompra" prefWidth="121.0" text="Precio compra" />
+            <TableColumn fx:id="precioVenta" prefWidth="108.0" text="Precio venta" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnComprar" layoutX="368.0" layoutY="180.0" mnemonicParsing="false" onAction="#comprar" prefHeight="41.0" prefWidth="192.0" text="Comprar" />
+      <Button fx:id="btnVender" layoutX="368.0" layoutY="259.0" mnemonicParsing="false" onAction="#vender" prefHeight="41.0" prefWidth="192.0" text="Vender" />
+      <Button fx:id="btnSalir" layoutX="368.0" layoutY="337.0" mnemonicParsing="false" onAction="#salir" prefHeight="41.0" prefWidth="192.0" text="Salir" />
+      <TextArea fx:id="txtDescripcion" layoutX="354.0" layoutY="32.0" prefHeight="120.0" prefWidth="221.0" />
+      <TextField fx:id="txtPokedollar" alignment="CENTER" editable="false" layoutX="213.0" layoutY="237.0" prefHeight="25.0" prefWidth="110.0" />
+      <Label layoutX="237.0" layoutY="262.0" text="Pokedollars" />
+   </children>
+</AnchorPane>

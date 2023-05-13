@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PantallaPrincipalController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/backgroundIMG/fondoPikachu.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnCrianza" layoutX="348.0" layoutY="300.0" mnemonicParsing="false" onAction="#empezarCrianza" prefHeight="36.0" prefWidth="141.0" text="Crianza" />
+      <Button fx:id="btnEntrenamiento" layoutX="108.0" layoutY="300.0" mnemonicParsing="false" onAction="#seleccionarEntrenamiento" prefHeight="36.0" prefWidth="141.0" text="Entrenamiento" />
+      <Button fx:id="btnEquipo" layoutX="348.0" layoutY="38.0" mnemonicParsing="false" onAction="#seleccionarEquipo" prefHeight="36.0" prefWidth="141.0" text="Equipo" />
+      <Button fx:id="btnCombate" layoutX="348.0" layoutY="121.0" mnemonicParsing="false" onAction="#comenzarCombate" prefHeight="36.0" prefWidth="141.0" text="Combate" />
+      <Button fx:id="btnCaptura" layoutX="108.0" layoutY="121.0" mnemonicParsing="false" onAction="#comenzarCaptura" prefHeight="36.0" prefWidth="141.0" text="Captura" />
+      <Button fx:id="btnPokedex" layoutX="108.0" layoutY="38.0" mnemonicParsing="false" onAction="#abrirPokedex" prefHeight="36.0" prefWidth="141.0" text="Pokedex" />
+      <Button fx:id="btnTienda" layoutX="108.0" layoutY="213.0" mnemonicParsing="false" onAction="#abrirTienda" prefHeight="36.0" prefWidth="141.0" text="Tienda" />
+      <Button fx:id="btnMochila" layoutX="348.0" layoutY="213.0" mnemonicParsing="false" onAction="#abrirMochila" prefHeight="36.0" prefWidth="141.0" text="Mochila" />
+   </children>
+</AnchorPane>

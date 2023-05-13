@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreacionMoteController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/backgroundIMG/fondoPikachu.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnPonerMote" layoutX="225.0" layoutY="200.0" mnemonicParsing="false" onAction="#ponerMote" prefHeight="36.0" prefWidth="136.0" text="Poner mote" />
+      <Button fx:id="btnSalir" layoutX="435.0" layoutY="327.0" mnemonicParsing="false" onAction="#salir" prefHeight="36.0" prefWidth="136.0" text="Salir" />
+      <TextField fx:id="txtMote" layoutX="218.0" layoutY="155.0" />
+      <Label fx:id="lblMote" layoutX="276.0" layoutY="138.0" prefHeight="17.0" prefWidth="48.0" text="Mote" />
+   </children>
+</AnchorPane>

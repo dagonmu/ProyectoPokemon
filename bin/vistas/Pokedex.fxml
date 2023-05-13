@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PokedexController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/backgroundIMG/pokedexFondo.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="pokedex" layoutX="50.0" layoutY="38.0" prefHeight="179.0" prefWidth="519.0">
+        <columns>
+          <TableColumn fx:id="numPokedex" prefWidth="77.0" text="Numero" />
+          <TableColumn fx:id="nombre" prefWidth="164.0" text="Nombre" />
+            <TableColumn fx:id="tipo1" prefWidth="147.0" text="Tipo1" />
+            <TableColumn fx:id="tipo2" prefWidth="137.0" text="Tipo2" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnSalir" layoutX="-1.0" layoutY="337.0" mnemonicParsing="false" onAction="#salir" prefHeight="65.0" prefWidth="600.0" text="Salir" />
+   </children>
+</AnchorPane>

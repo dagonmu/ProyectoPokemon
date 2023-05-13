@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CrianzaController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/backgroundIMG/fondoEntrenamiento.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblEquipo" layoutX="14.0" layoutY="14.0" prefHeight="192.0" prefWidth="572.0">
+        <columns>
+          <TableColumn fx:id="nombreEquipo" prefWidth="89.0" text="Nombre" />
+          <TableColumn fx:id="moteEquipo" prefWidth="89.0" text="Mote" />
+            <TableColumn fx:id="sexo" prefWidth="66.0" text="Sexo" />
+            <TableColumn fx:id="tipo1" prefWidth="129.0" text="Tipo 1" />
+            <TableColumn fx:id="tipo2" prefWidth="128.0" text="Tipo 2" />
+            <TableColumn fx:id="fertilidad" prefWidth="70.0" text="Fertilidad" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tblSeleccionados" layoutX="14.0" layoutY="210.0" prefHeight="176.0" prefWidth="261.0">
+        <columns>
+          <TableColumn fx:id="nombreSeleccionado" prefWidth="134.0" text="Nombre" />
+          <TableColumn fx:id="moteSeleccionado" prefWidth="126.0" text="Mote" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnAparear" layoutX="471.0" layoutY="218.0" mnemonicParsing="false" onAction="#aparear" prefHeight="36.0" prefWidth="93.0" text="Aparear" />
+      <Button fx:id="btnSalir" layoutX="471.0" layoutY="280.0" mnemonicParsing="false" onAction="#salir" prefHeight="36.0" prefWidth="93.0" text="Salir" />
+      <Button fx:id="btnSeleccionar" layoutX="300.0" layoutY="218.0" mnemonicParsing="false" onAction="#seleccionar" prefHeight="36.0" prefWidth="93.0" text="Seleccionar" />
+      <Button fx:id="btnQuitar" layoutX="300.0" layoutY="280.0" mnemonicParsing="false" onAction="#quitar" prefHeight="36.0" prefWidth="93.0" text="Quitar" />
+      <TextField fx:id="txtPokedollar" alignment="CENTER" editable="false" layoutX="275.0" layoutY="361.0" />
+      <Label layoutX="319.0" layoutY="344.0" text="Pokedollars" />
+   </children>
+</AnchorPane>

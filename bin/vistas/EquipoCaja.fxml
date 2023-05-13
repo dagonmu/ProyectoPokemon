@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EquipoCajaController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/backgroundIMG/fondoPikachu.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblEquipo" layoutX="141.0" layoutY="36.0" prefHeight="339.0" prefWidth="216.0">
+        <columns>
+          <TableColumn fx:id="nombreEquipo" prefWidth="51.0" text="Nombre" />
+          <TableColumn fx:id="moteEquipo" minWidth="0.0" prefWidth="46.0" text="Mote" />
+            <TableColumn fx:id="nivelEquipo" minWidth="0.0" prefWidth="43.0" text="Nivel" />
+            <TableColumn fx:id="tipo1Equipo" prefWidth="67.0" text="Tipo1" />
+            <TableColumn fx:id="tipo2Equipo" prefWidth="68.0" text="Tipo 2" />
+            <TableColumn fx:id="vitalidadEquipo" prefWidth="61.0" text="Vitalidad" />
+            <TableColumn fx:id="ataqueEquipo" prefWidth="58.0" text="Ataque" />
+            <TableColumn fx:id="ataqueEspEquipo" prefWidth="64.0" text="Atq.Esp" />
+            <TableColumn fx:id="defensaEquipo" minWidth="2.0" prefWidth="72.0" text="Defensa" />
+            <TableColumn fx:id="defensaEspEquipo" minWidth="2.0" prefWidth="61.0" text="Def.Esp" />
+            <TableColumn fx:id="velocidadEquipo" minWidth="2.0" prefWidth="72.0" text="Velocidad" />
+            <TableColumn fx:id="estaminaEquipo" text="Estamina" />
+            <TableColumn fx:id="fertilidadEquipo" prefWidth="75.0" text="Fertilidad" />
+            <TableColumn fx:id="sexoEquipo" prefWidth="65.0" text="Sexo" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tblCaja" layoutX="364.0" layoutY="36.0" prefHeight="339.0" prefWidth="216.0">
+         <columns>
+            <TableColumn fx:id="nombreCaja" prefWidth="51.0" text="Nombre" />
+            <TableColumn fx:id="moteCaja" minWidth="0.0" prefWidth="46.0" text="Mote" />
+            <TableColumn fx:id="nivelCaja" minWidth="0.0" prefWidth="43.0" text="Nivel" />
+            <TableColumn fx:id="tipo1Caja" prefWidth="67.0" text="Tipo1" />
+            <TableColumn fx:id="tipo2Caja" prefWidth="68.0" text="Tipo 2" />
+            <TableColumn fx:id="vitalidadCaja" prefWidth="61.0" text="Vitalidad" />
+            <TableColumn fx:id="ataqueCaja" prefWidth="58.0" text="Ataque" />
+            <TableColumn fx:id="ataqueEspCaja" prefWidth="64.0" text="Atq.Esp" />
+            <TableColumn fx:id="defensaCaja" minWidth="2.0" prefWidth="72.0" text="Defensa" />
+            <TableColumn fx:id="defensaEspCaja" minWidth="2.0" prefWidth="61.0" text="Def.Esp" />
+            <TableColumn fx:id="velocidadCaja" minWidth="2.0" prefWidth="72.0" text="Velocidad" />
+            <TableColumn fx:id="estaminaCaja" text="Estamina" />
+            <TableColumn fx:id="fertilidadCaja" prefWidth="75.0" text="Fertilidad" />
+            <TableColumn fx:id="sexoCaja" prefWidth="65.0" text="Sexo" />
+         </columns>
+      </TableView>
+      <Label fx:id="lblEquipo" layoutX="231.0" layoutY="14.0" text="Equipo" />
+      <Label fx:id="lblCaja" layoutX="461.0" layoutY="14.0" text="Caja" />
+      <Button fx:id="btnSalir" layoutX="27.0" layoutY="235.0" mnemonicParsing="false" onAction="#salir" prefHeight="25.0" prefWidth="78.0" text="Salir" />
+      <Button fx:id="btnQuitar" layoutX="27.0" layoutY="156.0" mnemonicParsing="false" onAction="#quitar" prefHeight="25.0" prefWidth="78.0" text="Quitar" />
+      <Button fx:id="btnAgregar" layoutX="27.0" layoutY="81.0" mnemonicParsing="false" onAction="#agregar" prefHeight="25.0" prefWidth="78.0" text="Agregar" />
+   </children>
+</AnchorPane>
